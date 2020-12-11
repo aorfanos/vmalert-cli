@@ -1,15 +1,22 @@
 name: Release
 
+# on:
+#   push:
+#     tags:
+#       - "v[0-9]+.[0-9]+.[0-9]+*"
 on:
   push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]+*"
+    branches:
+      - master
 jobs:
   release:
-    name: Upload Artifacts
-    needs: [create_release]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+      - name: Generate
+        uses: skx/github-action-build@master
+        with:
+          builder: .github/build
       - name: Upload the artifacts
         uses: skx/github-action-publish-binaries@release-1.3
         env:

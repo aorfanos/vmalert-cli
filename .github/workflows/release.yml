@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./pkgs/bin
+          asset_path: ./vmalertcli
           asset_name: vmalertcli-latest-amd64
           asset_content_type: application/octet-stream
       # - name: Upload binary for Debian build (.deb)

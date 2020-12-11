@@ -16,7 +16,6 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: "^1.13.1" # The Go version to download (if necessary) and use.
-      - run: GOOS=linux GOARCH=amd64 go build -o vmalertcli.amd64.bin
       - name: Generate
         uses: skx/github-action-build@master
         with:

@@ -46,17 +46,16 @@ jobs:
           asset_path: ./pkgs/bin
           asset_name: vmalertcli-latest-amd64
           asset_content_type: application/octet-stream
-
-      - name: Upload binary for Debian build (.deb)
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./pkgs/deb/**/usr/local/bin
-          asset_name: vmalertcli
-          asset_content_type: application/octet-stream
-      # - name: Build .deb installable package
-      #   run: |
-      #     dpkg-deb --build pkgs/deb/vmalertcli_0.0.1
+      # - name: Upload binary for Debian build (.deb)
+      #   id: upload-release-asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./pkgs/deb/**/usr/local/bin
+      #     asset_name: vmalertcli
+      #     asset_content_type: application/octet-stream
+      # # - name: Build .deb installable package
+      # #   run: |
+      # #     dpkg-deb --build pkgs/deb/vmalertcli_0.0.1

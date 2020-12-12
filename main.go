@@ -7,12 +7,14 @@ import (
 	"strconv"
 
 	"github.com/namsral/flag"
+	"github.com/tidwall/pretty"
 )
 
 var (
 	vmalertHost   = flag.String("host", "localhost", "Host where VMAlert responds")
 	vmalertPort   = flag.Int("port", 8880, "VMAlert port")
 	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload}")
+	prettyPrint   = flag.Bool("pretty", false, "Pretty print {false|true}")
 )
 
 func init() {
@@ -25,7 +27,12 @@ func getJsonData(apiBase string, apiEndpoint string) []byte {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
 	}
 	data, _ := ioutil.ReadAll(response.Body)
-	return data
+
+	if *prettyPrint {
+		return pretty.Pretty(data)
+	} else {
+		return data
+	}
 }
 
 func main() {

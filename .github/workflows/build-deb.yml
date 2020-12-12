@@ -20,13 +20,13 @@ jobs:
 
       - name: Build binary
         run: |
-          go build -o deb/vmalertcli_${{ github.ref }}/usr/local/bin/vmalertcli
+          go build -o deb/vmalertcli_${{ GITHUB_REF##*/ }}/usr/local/bin/vmalertcli
         env:
           GOOS: linux
           GOARCH: amd64
 
       - name: Build .deb file
-        run: dpkg-deb --build vmalertcli_${{ github.ref }}
+        run: dpkg-deb --build vmalertcli_${{ GITHUB_REF##*/ }}
         working-directory: deb/
 
       - name: Create Release

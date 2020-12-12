@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/namsral/flag"
@@ -13,7 +14,7 @@ import (
 var (
 	vmalertHost   = flag.String("host", "localhost", "Host where VMAlert responds")
 	vmalertPort   = flag.Int("port", 8880, "VMAlert port")
-	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload}")
+	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload|status <groupName> <alertId>}")
 	prettyPrint   = flag.Bool("pretty", false, "Pretty print {false|true}")
 )
 
@@ -52,6 +53,11 @@ func main() {
 		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
 	case "reload":
 		endpoint := "/-/reload"
+		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+	case "status":
+		groupName := os.Args[len(os.Args)-2]
+		alertID := os.Args[len(os.Args)-1]
+		endpoint := "/api/v1/" + groupName + "/" + alertID + "/status"
 		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
 	}
 }

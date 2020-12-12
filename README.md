@@ -1,4 +1,6 @@
 # vmalertcli
+![Release binary](https://github.com/aorfanos/vmalert-cli/workflows/Release%20binary/badge.svg)
+
 
 A CLI application to manage VictoriaMetrics vmalert.
 

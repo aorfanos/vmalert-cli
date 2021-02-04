@@ -14,6 +14,7 @@ Host/port are by default `localhost:8880`, you can change the configuration by u
 Usage of ./vmalertcli:
   -action="groups": VMAlert action to take {groups|alerts|metrics|reload}
   -host="localhost": Host where VMAlert responds
+  -schema="http": Schema to use when accessing VMAlert
   -port=8880: VMAlert port
   -pretty=false: Pretty print {false|true}
 ```
@@ -26,7 +27,7 @@ Put binary in $PATH (release will be updated).
 
 View alert groups:
 ```
-vmalertcli -action groups -pretty
+vmalertcli -schema http -action groups -pretty
 ```
 
 View VMAlert metrics:

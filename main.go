@@ -13,6 +13,7 @@ import (
 
 var (
 	vmalertHost   = flag.String("host", "localhost", "Host where VMAlert responds")
+	vmalertSchema = flag.String("schema", "http", "Use http|https")
 	vmalertPort   = flag.Int("port", 8880, "VMAlert port")
 	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload|status <groupName> <alertId>}")
 	prettyPrint   = flag.Bool("pretty", false, "Pretty print {false|true}")
@@ -39,7 +40,9 @@ func getJsonData(apiBase string, apiEndpoint string) []byte {
 func main() {
 	host := *vmalertHost
 	action := *vmalertAction
-	vmalertBase := "http://" + host + ":" + strconv.Itoa(*vmalertPort)
+	schema := *vmalertSchema
+
+	vmalertBase := schema + "://" + host + ":" + strconv.Itoa(*vmalertPort)
 
 	switch takeAction := action; takeAction {
 	case "groups":

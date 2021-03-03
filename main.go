@@ -27,7 +27,7 @@ var (
 	vmalertHost   = flag.String("host", "localhost", "Host where VMAlert responds")
 	vmalertSchema = flag.String("schema", "http", "Use http|https")
 	vmalertPort   = flag.Int("port", 8880, "VMAlert port")
-	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload|status <groupName> <alertId>}")
+	vmalertAction = flag.String("action", "groups", "VMAlert action to take {groups|alerts|metrics|reload|status <groupName> <alertName>}")
 	prettyPrint   = flag.Bool("pretty", false, "Pretty print {false|true}")
 )
 

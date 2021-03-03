@@ -23,7 +23,7 @@ func init() {
 	flag.Parse()
 }
 
-func getJsonData(apiBase string, apiEndpoint string) []byte {
+func GetJSONData(apiBase string, apiEndpoint string) []byte {
 	response, err := http.Get(apiBase + apiEndpoint)
 	if err != nil {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
@@ -47,20 +47,20 @@ func main() {
 	switch takeAction := action; takeAction {
 	case "groups":
 		endpoint := "/api/v1/groups"
-		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "alerts":
 		endpoint := "/api/v1/alerts"
-		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "metrics":
 		endpoint := "/metrics"
-		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "reload":
 		endpoint := "/-/reload"
-		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "status":
 		groupName := os.Args[len(os.Args)-2]
 		alertID := os.Args[len(os.Args)-1]
 		endpoint := "/api/v1/" + groupName + "/" + alertID + "/status"
-		fmt.Println(string(getJsonData(vmalertBase, endpoint)))
+		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	}
 }

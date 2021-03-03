@@ -105,9 +105,8 @@ func main() {
 		endpoint := "/-/reload"
 		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "status":
-		groupName := os.Args[len(os.Args)-2]
 		alertName := os.Args[len(os.Args)-1]
-		endpoint := "/api/v1/" + NameToID(groupName, "group", vmalertBase) +
+		endpoint := "/api/v1/" + NameToID(alertName, "group", vmalertBase) +
 			"/" + NameToID(alertName, "alert", vmalertBase) + "/status"
 		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	}

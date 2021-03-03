@@ -1,3 +1,4 @@
+[![amd64 binary](https://github.com/aorfanos/vmalert-cli/actions/workflows/build-bin.yml/badge.svg)](https://github.com/aorfanos/vmalert-cli/actions/workflows/build-bin.yml)
 # vmalert-cli
 
 A CLI application to manage VictoriaMetrics vmalert.

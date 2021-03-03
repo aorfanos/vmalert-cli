@@ -19,7 +19,16 @@ Usage of ./vmalert-cli:
 
 ### Installation 
  
-Put binary in $PATH (release method will be updated).
+Quick install:
+
+```console
+curl --silent https://api.github.com/repos/aorfanos/vmalert-cli/releases/latest \
+  | grep browser_download_url \
+  | grep amd64 \
+  | cut -d '"' -f 4 \
+  | wget -qi - && \
+  mv vmalertcli-latest-amd64 /usr/local/bin/vmalert-cli
+```
 
 ### Usage
 

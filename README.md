@@ -9,7 +9,7 @@ Host/port are by default `localhost:8880`, you can change the configuration by u
 ### Help menu
 
 ```console
-Usage of ./vmalert64:
+Usage of ./vmalert-cli:
   -action="groups": VMAlert action to take {groups|alerts|metrics|reload|status <alertName>}
   -host="localhost": Host where VMAlert responds
   -port=8880: VMAlert port
@@ -25,25 +25,25 @@ Put binary in $PATH (release method will be updated).
 
 View alert groups:
 ```
-vmalertcli -schema http -action groups -pretty
+vmalert-cli -schema http -action groups -pretty
 ```
 
 View VMAlert metrics:
 ```
-vmalertcli -action metrics
+vmalert-cli -action metrics
 ```
 
 Hot-reload VMAlert configuration:
 ```
-vmalertcli -action reload
+vmalert-cli -action reload
 ```
 
 View active (firing) alerts:
 ```
-vmalertcli -action alerts
+vmalert-cli -action alerts
 ```
 
 View status for specific alert:
 ```
-vmalertcli -pretty -action status KubeDeploymentFailed
+vmalert-cli -pretty -action status KubeDeploymentFailed
 ```

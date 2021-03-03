@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -10,6 +12,16 @@ import (
 	"github.com/namsral/flag"
 	"github.com/tidwall/pretty"
 )
+
+type Alert struct {
+	Data struct {
+		Alerts []struct {
+			ID   string `json:"id"`
+			Name string `json:"name"`
+			GID  string `json:"group_id"`
+		} `json:"alerts"`
+	} `json:"data"`
+}
 
 var (
 	vmalertHost   = flag.String("host", "localhost", "Host where VMAlert responds")
@@ -23,11 +35,15 @@ func init() {
 	flag.Parse()
 }
 
+func ErrCheck(e error) {
+	if e != nil {
+		log.Println(e)
+	}
+}
+
 func GetJSONData(apiBase string, apiEndpoint string) []byte {
 	response, err := http.Get(apiBase + apiEndpoint)
-	if err != nil {
-		fmt.Printf("The HTTP request failed with error %s\n", err)
-	}
+	ErrCheck(err)
 	data, _ := ioutil.ReadAll(response.Body)
 
 	if *prettyPrint {
@@ -35,6 +51,37 @@ func GetJSONData(apiBase string, apiEndpoint string) []byte {
 	} else {
 		return data
 	}
+}
+
+func NameToID(itemName, itemType, apiBase string) string {
+	var alertResponse Alert
+	var itemID string
+
+	response, err := http.Get(apiBase + "/api/v1/alerts")
+	ErrCheck(err)
+	data, _ := ioutil.ReadAll(response.Body)
+	err = json.Unmarshal(data, &alertResponse)
+	ErrCheck(err)
+
+	switch operation := itemType; operation {
+	case "alert":
+		for i := 0; i < len(alertResponse.Data.Alerts); i++ {
+			if itemName == alertResponse.Data.Alerts[i].Name {
+				itemID = alertResponse.Data.Alerts[i].ID
+			} else {
+				itemID = ""
+			}
+		}
+	case "group":
+		for i := 0; i < len(alertResponse.Data.Alerts); i++ {
+			if itemName == alertResponse.Data.Alerts[i].Name {
+				itemID = alertResponse.Data.Alerts[i].GID
+			} else {
+				itemID = ""
+			}
+		}
+	}
+	return itemID
 }
 
 func main() {
@@ -59,8 +106,9 @@ func main() {
 		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	case "status":
 		groupName := os.Args[len(os.Args)-2]
-		alertID := os.Args[len(os.Args)-1]
-		endpoint := "/api/v1/" + groupName + "/" + alertID + "/status"
+		alertName := os.Args[len(os.Args)-1]
+		endpoint := "/api/v1/" + NameToID(groupName, "group", vmalertBase) +
+			"/" + NameToID(alertName, "alert", vmalertBase) + "/status"
 		fmt.Println(string(GetJSONData(vmalertBase, endpoint)))
 	}
 }

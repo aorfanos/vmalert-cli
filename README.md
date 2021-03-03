@@ -1,6 +1,4 @@
-# vmalertcli
-![Release binary](https://github.com/aorfanos/vmalert-cli/workflows/Release%20binary/badge.svg)
-
+# vmalert-cli
 
 A CLI application to manage VictoriaMetrics vmalert.
 
@@ -10,18 +8,18 @@ Host/port are by default `localhost:8880`, you can change the configuration by u
 
 ### Help menu
 
-```
-Usage of ./vmalertcli:
-  -action="groups": VMAlert action to take {groups|alerts|metrics|reload}
+```console
+Usage of ./vmalert64:
+  -action="groups": VMAlert action to take {groups|alerts|metrics|reload|status <alertName>}
   -host="localhost": Host where VMAlert responds
-  -schema="http": Schema to use when accessing VMAlert
   -port=8880: VMAlert port
   -pretty=false: Pretty print {false|true}
+  -schema="http": Use http|https
 ```
 
 ### Installation 
  
-Put binary in $PATH (release will be updated).
+Put binary in $PATH (release method will be updated).
 
 ### Usage
 
@@ -43,4 +41,9 @@ vmalertcli -action reload
 View active (firing) alerts:
 ```
 vmalertcli -action alerts
+```
+
+View status for specific alert:
+```
+vmalertcli -pretty -action status KubeDeploymentFailed
 ```

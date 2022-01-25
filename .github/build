@@ -1,3 +1,0 @@
-GOOS=linux
-GOARCH=amd64
-go build -o vmalertcli.amd64.bin

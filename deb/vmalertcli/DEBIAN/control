@@ -1,9 +1,0 @@
-Package: vmalertcli
-Version: 0.1.5
-Section: base
-Priority: optional
-Architecture: amd64
-Maintainer: Alex Orfanos <me@aorfanos.com>
-Description: VMAlert CLI
- A command-line tool to interact with
- VictoriaMetrics VMAlert

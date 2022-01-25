@@ -20,15 +20,16 @@ Usage of ./vmalert-cli:
 
 ### Installation 
  
-Quick install:
+Quick install (example for linux/amd64, change it for your arch):
 
 ```console
 curl --silent https://api.github.com/repos/aorfanos/vmalert-cli/releases/latest \
   | grep browser_download_url \
   | grep amd64 \
+  | grep linux \
   | cut -d '"' -f 4 \
   | wget -qi - && \
-  mv vmalertcli-latest-amd64 /usr/local/bin/vmalert-cli
+  mv vmalertcli-linux-amd64-latest /usr/local/bin/vmalert-cli
 ```
 
 ### Usage
